@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolutionary Mismatch Lifestyle - Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        .group-scores {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .group-scores table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .group-scores th, .group-scores td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .group-scores th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        #graph {
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Evolutionary Mismatch Lifestyle</h1>
+    </header>
+
+    <main>
+        <h2>Your Evolutionary Mismatch Score</h2>
+        <h3>Your Total Mismatch Score (Out of 100): {{ score |round(2) }}</h3>
+
+        <section class="group-scores">
+            <h3>Your Group-wise Mismatch Scores and Statistics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Your Score</th>
+                        <th>Mean Population Score</th>
+                        <th>Your Mismatch Percentile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Home Environment</td>
+                        <td>{{ group_scores['group1']|round(2) }}</td>
+                        <td>{{ means['group1']|round(2) }}</td>
+                        <td>{{ percentiles['group1']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Physical Activity</td>
+                        <td>{{ group_scores['group2']|round(2) }}</td>
+                        <td>{{ means['group2']|round(2) }}</td>
+                        <td>{{ percentiles['group2']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Diet</td>
+                        <td>{{ group_scores['group3']|round(2) }}</td>
+                        <td>{{ means['group3']|round(2) }}</td>
+                        <td>{{ percentiles['group3']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Vanity</td>
+                        <td>{{ group_scores['group4']|round(2) }}</td>
+                        <td>{{ means['group4']|round(2) }}</td>
+                        <td>{{ percentiles['group4']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Romantic Relationships</td>
+                        <td>{{ group_scores['group5']|round(2) }}</td>
+                        <td>{{ means['group5']|round(2) }}</td>
+                        <td>{{ percentiles['group5']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Social Media Usage</td>
+                        <td>{{ group_scores['group6']|round(2) }}</td>
+                        <td>{{ means['group6']|round(2) }}</td>
+                        <td>{{ percentiles['group6']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Social Support</td>
+                        <td>{{ group_scores['group7']|round(2) }}</td>
+                        <td>{{ means['group7']|round(2) }}</td>
+                        <td>{{ percentiles['group7']|round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <td>Total Score</td>
+                        <td>{{ score|round(2) }}</td>
+                        <td>{{ means['total']|round(2) }}</td>
+                        <td>{{ percentiles['total']|round(2) }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div id="graph"></div>
+
+        <button onclick="window.location.href='/'">Submit Another Response</button>
+    </main>
+
+    <footer>
+        <p>© 2024 Evolutionary Mismatch Lifestyle. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const graphData = {{ graphJSON | safe }};
+        Plotly.newPlot('graph', graphData.data, graphData.layout);
+    </script>
+</body>
+
+</html>
